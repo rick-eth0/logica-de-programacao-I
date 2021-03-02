@@ -1,0 +1,89 @@
+<meta charset="utf-8">
+
+<style>
+    body{
+        background-color: #363636;
+        font-size: 16px;
+        font-family: helvetica;
+        color: antiquewhite;
+    }
+</style>
+
+<h1>TENTE A SORTE</h1>
+<fieldset>
+    <legend>Chute um numero</legend>
+
+
+<input type="text"><br><br>
+<button>Compare com o seu segredo</button>
+
+<script>
+    function sorteia() {
+        
+        return Math.round(Math.random() * 10)
+    }
+
+    function sorteiaNumero(quantidade) {
+
+        var segredos = [];
+
+        var numero = 1;
+
+        while(numero <= quantidade) {
+            var numeroAleatorio = sorteia();
+
+            var achou = false;
+
+            if(numeroAleatorio !== 0) {
+
+                for(var posicao = 0; posicao < segredos.length; posicao++) {
+
+                    if(segredos[posicao] == numeroAleatorio) {
+    
+                        achou = true;
+                        break;
+                    }
+                }
+                
+                if(achou == false) {
+                segredos.push(numeroAleatorio);
+                numero++;
+                }
+            }
+        }
+
+        return segredos;
+    }
+
+
+    var segredos = sorteiaNumero(4);
+
+    console.log(segredos);
+
+    var input = document.querySelector("input");
+    input.focus();
+
+    function verificar() {
+
+        var achou = false;
+
+        for(posiçao = 0; posiçao < segredos.length; posiçao++){
+
+            if(input.value == segredos[posiçao]) {
+                alert("Você VENCEU!");
+                achou = true;
+                break;
+            }
+
+        }
+        
+        if(achou == false) {
+            alert("Voce ERROU!!!")
+        }
+
+        input.value = "";
+        input.focus();
+    }
+    var button = document.querySelector("button")
+    button.onclick = verificar;
+</script>
